@@ -25,7 +25,8 @@ namespace CuentaDeAhorros
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
-            services.AddControllers();            
+            services.AddControllers();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
