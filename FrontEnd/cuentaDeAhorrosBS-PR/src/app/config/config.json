@@ -1,5 +1,0 @@
-{
-    "configOverrideFiles": {}, // This is required
-    "environmentVariables": {}, // This is required
-    "simpleConfigItem": "simpleConfigValue"
-}

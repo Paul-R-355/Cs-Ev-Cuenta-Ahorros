@@ -23,6 +23,8 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {SelectButtonModule} from "primeng/selectbutton";
 import { MessageService } from 'primeng/api';
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { MessageService } from 'primeng/api';
     MatTabsModule,
     ConfirmPopupModule,
     SelectButtonModule,
+    HttpClientModule,
+    
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,11 @@ namespace CuentaDeAhorrosBackEnd
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            services.AddCors(options => options.AddPolicy("AllowWebApp",
+                                                          builder=>builder.AllowAnyOrigin()
+                                                                            .AllowAnyHeader()
+                                                                            .AllowAnyMethod()                                                                            
+                                                                            .WithOrigins("http://localhost:4200")));
             services.AddControllers();
         }
 
@@ -36,12 +42,11 @@ namespace CuentaDeAhorrosBackEnd
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
-
+            app.UseCors("AllowWebApp");
             app.UseHttpsRedirection();
-
-            app.UseRouting();
-
+            app.UseRouting();            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

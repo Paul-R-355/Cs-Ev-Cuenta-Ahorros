@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/modelo/Usuario';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import { MessageService } from 'primeng/api';
 import { CuentaDeAhorrosService } from 'src/app/services/cuentaDeAhorros/cuenta-de-ahorros.service';
+import { Cliente } from 'src/app/modelo/Cliente';
 
 @Component({
   selector: 'app-cuenta-de-ahorros',
@@ -67,18 +68,18 @@ export class CuentaDeAhorrosComponent implements OnInit {
 
   crearPersonal() {
    
-    //this.displayCrear = true; 
-    this.cuentaDeAhorrosService.postCliente('').subscribe((x:any)=>{
+    const cli:Cliente={
+      id:0,
+      nombre:'Pablo',
+      apellido:'Robles',
+      cedula:'1728394657'
+    };
 
-      //console.log('objectResult',x.objectResult)
-      //console.log('x',x)
-      if(x.typeResult == 1){
-        //this.farmsList = x.objectResult;        
+    this.cuentaDeAhorrosService.postCliente(cli).subscribe((x:any)=>{   
         console.log('objectResult',x)
-      }
-
     })
-  
+    //this.displayCrear = true; 
+
     this.messages.add({
       key: 'login',
       severity: 'success',
