@@ -1,0 +1,151 @@
+.mat-toolbar-row, .mat-toolbar-single-row {
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 16px;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+  }
+  .espacio {
+    flex: 1 1 auto;
+  }
+  .mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+  }
+  .mat-icon-button {
+    padding-top: 8px;
+    padding-left: 0px;
+    padding-right: 0px;
+    min-width: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    line-height: 40px;
+    border-radius: 50%;
+  
+  }
+  .container {
+    max-width: 93%;
+    padding-left: 6%;
+    padding-top: 1%;
+  }
+  .mat-form-field-infix {
+    display: block;
+    position: relative;
+    flex: auto;
+  }
+  .mat-form-field-wrapper {
+    width: 1200px;
+  }
+  :host::ng-deep .mat-form-field {
+    width: 100%;
+  }
+  :host::ng-deep .mat-form-field .mat-form-field-flex {
+    background-color: transparent;
+  }
+  :host::ng-deep .mat-error {
+    font-size: 11px;
+  }
+  .mat-raised-button {
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    width: 100%;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    transform: translate3d(0, 0, 0);
+    transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .iconos {
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 24px;
+    width: 24px;
+    float:right;
+    position: fixed;
+    margin-left: -10px;
+  }
+  :host::ng-deep .p-dialog-header {
+    background-color: lightgray;
+    max-height: 10px;
+  }
+  :host::ng-deep .p-dialog-footer {
+    background-color: lightgray;
+    height: 45px;
+  }
+  :host::ng-deep .p-dropdown {
+    width: 100%;
+  }
+  :host::ng-deep .p-fileupload {
+    border-radius: 50%;
+  }
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  .inputfile + label {
+    max-width: 80%;
+    color: #d3394c;
+    font-size: 10pt;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+  }
+  
+  .inputfile:focus + label,
+  .inputfile + label:hover {
+    color: #722040;
+  }
+  .inputfile + label {
+    cursor: pointer; /* "hand" cursor */
+  }
+  :host ::ng-deep .mat-card {
+    box-shadow: 2px 2px 2px 2px lightgrey;
+  }
+  

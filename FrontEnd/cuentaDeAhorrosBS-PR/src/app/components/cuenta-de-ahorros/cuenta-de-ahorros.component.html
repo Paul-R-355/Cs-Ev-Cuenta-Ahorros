@@ -1,0 +1,175 @@
+<p-toast position="top-right" key="login"></p-toast>
+
+<button pButton type="button" icon="pi pi-plus" class="p-button-success" style="width: 100%" label="Crear" (click)="crearPersonal()  "></button>      
+
+
+<p-dialog [(visible)]="displayCrear" [modal]="true" [style]="{'width': '75vw', 'height' :'auto'}" header="Crear Empleado">
+  <br>
+  <div class="grid">
+    <div class="col-2" style="height: 26vh"></div>
+    <div class="col-8" style="height: 26vh">
+      <div class="grid" style="height: 26vh">
+        <div class="col-4"></div>
+        <div class="col-4">
+          
+        </div>
+        <div class="col-4"></div>
+      </div>
+    </div>
+    <div class="col-2" style="height: 26vh"></div>
+    <div class="col-5"></div>
+    <div class="col-3" style="margin-top: 0">
+      <input *ngIf="personalNuevo.nombre !== ''" type="file" name="file" id="file2" class="inputfile" (change)="onFileSelected($event)">
+      <label *ngIf="personalNuevo.nombre !== ''" for="file2">
+        <i class="pi pi-upload" style="margin-right: 10px"></i>
+        <span>Subir Archivo</span></label>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Identificación:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Identificación del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: 1784957840" [(ngModel)]="personalNuevo.identificacion" [minlength]="10" [maxlength]="10" [pKeyFilter]="'pnum'" [ngClass]="(personalNuevo.identificacion === '' || personalNuevo.identificacion.length < 10) ? 'ng-invalid ng-dirty' : ''">
+          <small *ngIf="personalNuevo.identificacion === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+          <small *ngIf="personalNuevo.identificacion.length < 10 && personalNuevo.identificacion !== ''" class="p-error block" style="font-size: 8pt; float: right">Cédula no válida.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Nombre:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Nombre del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: Carlos" [(ngModel)]="personalNuevo.nombre" [ngClass]="(personalNuevo.nombre === '') ? 'ng-invalid ng-dirty' : ''" [pKeyFilter]="'alpha'">
+          <small *ngIf="personalNuevo.nombre === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1"></div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Apellido:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Apellido del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: Bonilla" [(ngModel)]="personalNuevo.apellido" [ngClass]="(personalNuevo.apellido === '') ? 'ng-invalid ng-dirty' : ''" [pKeyFilter]="'alpha'">
+          <small *ngIf="personalNuevo.apellido === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">País:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">País del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;"  placeholder="Ej: Ecuador" [(ngModel)]="personalNuevo.pais" [pKeyFilter]="'alpha'">
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1"></div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Correo:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Correo del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: usuario@servidor.com" [(ngModel)]="personalNuevo.correo" (input)="controlarCorreo('n')" [ngClass]="(personalNuevo.correo === '') ? 'ng-invalid ng-dirty' : ''">
+          <small *ngIf="personalNuevo.correo === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+          <small *ngIf="emailNuevoerror && personalNuevo.correo !== ''" class="p-error block" style="font-size: 8pt; float: right">El correo no es válido.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Teléfono:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Teléfono del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%; font-size: 10pt;" placeholder="Ej: 0987486915" [(ngModel)]="personalNuevo.telefono" [pKeyFilter]="'pnum'" [maxlength]="10" [minlength]="10" [ngClass]="(personalNuevo.telefono === '' || personalNuevo.telefono.length < 10) ? 'ng-invalid ng-dirty' : ''">
+          <small *ngIf="personalNuevo.telefono === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+          <small *ngIf="personalNuevo.telefono.length < 10 && personalNuevo.telefono !== ''" class="p-error block" style="font-size: 8pt; float: right">Teléfono no válido.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1"></div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 40px">
+              <span style="font-size: 10pt; font-weight: bold">Tipo de Usuario:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Seleccione el tipo de usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <p-dropdown [options]="tiposUsuarios" appendTo="body"  optionLabel="name" optionValue="name" [(ngModel)]="personalNuevo.tipoUsuario"></p-dropdown>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-5"></div>
+    <div class="col-1"></div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger" (click)="displayCrear = false"></button>
+    <button pButton label="Guardar" [disabled]="emailNuevoerror || personalNuevo.identificacion.length < 10 || personalNuevo.telefono.length < 10 || personalNuevo.nombre === '' || personalNuevo.apellido === ''" icon="pi pi-check" class="p-button-success" (click)="crearPersonal()"></button>
+  </ng-template>
+</p-dialog>
