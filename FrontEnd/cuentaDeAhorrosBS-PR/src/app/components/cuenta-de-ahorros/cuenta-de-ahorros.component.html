@@ -1,23 +1,22 @@
 <p-toast position="top-right" key="login"></p-toast>
 
-<button pButton type="button" icon="pi pi-plus" class="p-button-success" style="width: 100%" label="Crear" (click)="crearPersonal()  "></button>      
-
-
-<p-dialog [(visible)]="displayCrear" [modal]="true" [style]="{'width': '75vw', 'height' :'auto'}" header="Crear Empleado">
-  <br>
+<mat-card>
+  <h4>Registros</h4>
   <div class="grid">
-    <div class="col-2" style="height: 26vh"></div>
-    <div class="col-8" style="height: 26vh">
-      <div class="grid" style="height: 26vh">
-        <div class="col-4"></div>
-        <div class="col-4">
-          
-        </div>
-        <div class="col-4"></div>
-      </div>
+    <div class="col-1">
+      <span style="font-weight: bold; font-size: 10pt">Crear Nuevo registro:</span>
     </div>
-    <div class="col-2" style="height: 26vh"></div>
-    <div class="col-5"></div>
+    <div class="col-2">
+      <button pButton type="button" icon="pi pi-plus" class="p-button-success" style="width: 100%" label="Crear" (click)="displayCrear = true; "></button>
+    </div>
+    <div class="col-12">
+    </div>
+  </div>
+</mat-card>
+
+<p-dialog [(visible)]="displayCrear" [modal]="true" [style]="{'width': '75vw', 'height' :'auto'}" header="Registro de cuenta de ahorros">
+  <br>
+  <div class="grid">    
     <div class="col-3" style="margin-top: 0">
       <input *ngIf="personalNuevo.nombre !== ''" type="file" name="file" id="file2" class="inputfile" (change)="onFileSelected($event)">
       <label *ngIf="personalNuevo.nombre !== ''" for="file2">
