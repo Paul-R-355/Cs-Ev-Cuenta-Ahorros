@@ -13,7 +13,7 @@ namespace CuentaDeAhorrosBackEnd.Modelo
         public string apellido{ get; set; }
         public Double monto_inicial { get; set; }
         public Double porct_interes_nomin { get; set; }
-        public string valores_mensuales { get; set; }
+        public List<string> valores_mensuales { get; set; }
 
     }
 }

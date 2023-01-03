@@ -85,23 +85,72 @@ export class CuentaDeAhorrosComponent implements OnInit {
   this.messages.add({
     key: 'login',
     severity: 'success',
-    summary: 'Inicio de Sesión',
-    detail: 'Bienvenido :3'
+    summary: 'Registro Exitoso!',
+    detail: 'Guardado exitosamente'
   });
+  this.limpiarCampos()
+  }
 
+  limpiarCampos(){
+    this.displayCrear = false
+    this.cliente={
+      id:0,
+      nombre:'',
+      apellido:'',
+      cedula:'',
+      monto:0
+    };    
+    this.cuentaClienteList=[];
+    this.cargarCuentasAhorros()
+        
   }
 
   cargarCuentasAhorros(){    
-    this.cuentaDeAhorrosService.getCuentasCliente().subscribe((x:any)=>{   
-      console.log('objectResult',x)
+    this.cuentaDeAhorrosService.getCuentasCliente().subscribe((x:any)=>{
+      
+      for (let i = 0; i < x.length; i++) {
+        x[i] = {    
+            ...x[i],    
+            valores_mensuales:this.createValues(x[i].valores_mensuales)    
+        }    
+      }          
       this.cuentaClienteList=x;
-    })
+      console.log(this.cuentaClienteList);
+    })    
+  }
+  
+  createValues(dates:any){
+    const a = [];
+
+      let valMensual = {
+      "Primer_Monto":dates[0],
+
+      "Segundo_Monto":dates[1],
+
+      "Tercero_Monto":dates[2],
+
+      "Cuarto_Monto":dates[3],
+
+      "Quinto_Monto":dates[4],
+
+      "Sexto_Monto":dates[5],
+
+      "Septimo_Monto":dates[6],
+
+      "Octavo_Monto":dates[7],
+
+      "Noveno_Monto":dates[8],
+
+      "Decimo_Monto":dates[9],
+
+      "Onceavo_Monto":dates[10],
+
+      "Doceavo_Monto":dates[11],
+    }
+    a.push(valMensual)
+    return a
   }
 
-  controlarCorreo(tipo: string) {
-  }
 
-  onFileSelected(event: any) {
-  }
 
 }

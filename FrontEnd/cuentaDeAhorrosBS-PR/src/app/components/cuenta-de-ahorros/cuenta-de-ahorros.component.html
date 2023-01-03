@@ -1,13 +1,25 @@
 <p-toast position="top-right" key="login"></p-toast>
 
-<mat-card>
-  <h4>Registros</h4>
+<mat-card>  
   <div class="grid">
     <div class="col-1">
-      <span style="font-weight: bold; font-size: 10pt">Crear Nuevo registro:</span>
+      
     </div>
     <div class="col-2">
-      <button pButton type="button" icon="pi pi-plus" class="p-button-success" style="width: 100%" label="Crear" (click)="this.displayCrear = true;"></button>
+      <img src="https://www.banco-solidario.com/sites/default/files/inline-images/Noticias_e_historiras-banner_inferior.png" style="width: 100%; height: auto;">
+    </div>
+    <div class="col-12">
+    </div>
+  </div>
+</mat-card>
+
+<mat-card>
+  <h4>Crear Nuevo registro</h4>
+  <div class="grid">
+    <div class="col-1">      
+    </div>
+    <div class="col-2">
+      <button pButton type="button" icon="pi pi-plus" class="p-button-success" style="width: 15%" label="Crear" (click)="this.displayCrear = true;"></button>
     </div>
     <div class="col-12">
     </div>
@@ -19,39 +31,141 @@
   <h4>Registros</h4>
   <div class="grid">
     <div class="col-1">
-      <span style="font-weight: bold; font-size: 10pt">Crear Nuevo registro:</span>
+      <span style="font-weight: bold; font-size: 10pt">Cuentas de Ahorro:</span>
     </div>
     <div class="col-2">
       <div class="col-12">
         <p-table #dt [value]="cuentaClienteList" [rows]="10" selectionMode="single" [paginator]="true" [globalFilterFields]="['nombre', 'apellido','cedula']" responsiveLayout="scroll"
-                [rowHover]="true" dataKey="identificacion"
-                [showCurrentPageReport]="true"  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados">
-          <ng-template pTemplate="header">
-            <tr>
-              <th style="text-align: center; width: 10%">ID</th>
-              <th pSortableColumn="identificacion" style="text-align: center; width: 8%">Cédula <p-sortIcon field="identificacion"></p-sortIcon></th>
-              <th pSortableColumn="nombre" style="text-align: center; width: 12%">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-              <th pSortableColumn="apellido" style="text-align: center; width: 12%">Apellido <p-sortIcon field="apellido"></p-sortIcon></th>              
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-cuentaClienteList>
-            <tr  [pSelectableRow]="cuentaClienteList">
-              <td style="text-align: center; width: 8%">{{cuentaClienteList.id}}</td>
-              <td style="text-align: center; width: 15%">{{cuentaClienteList.cedula}}</td>
-              <td style="text-align: center; width: 12%">{{cuentaClienteList.nombre}}</td>
-              <td style="text-align: center; width: 12%">{{cuentaClienteList.apellido}}</td>              
-              
-              <td style="text-align: center; width: 20%">
-                <div class="grid">
-                  <div class="col-12" style="padding-top: 0; padding-bottom: 0">
-                  </div>
-                  <div class="col-12" style="padding-top: 0; padding-bottom: 0">                    
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
+
+        [rowHover]="true" dataKey="cedula"
+
+        [showCurrentPageReport]="true"  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados">
+
+  <ng-template pTemplate="header">
+
+    <tr>
+
+      <th style="text-align: center; width: 10%"></th>
+
+      <th style="text-align: center; width: 10%">ID</th>
+
+      <th pSortableColumn="cedula" style="text-align: center; width: 25%">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
+
+      <th pSortableColumn="nombre" style="text-align: center; width: 25%">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+
+      <th pSortableColumn="apellido" style="text-align: center; width: 25%">Apellido <p-sortIcon field="apellido"></p-sortIcon></th>              
+
+      <th pSortableColumn="monto_inicial" style="text-align: center; width: 100%">Monto <p-sortIcon field="monto_inicial"></p-sortIcon></th>              
+
+      <th pSortableColumn="porct_interes_nomin" style="text-align: center; width: 100%">Int. Nominal <p-sortIcon field="porct_interes_nomin"></p-sortIcon></th>              
+
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-cuentaCliente let-expanded="expanded">
+
+
+
+    <tr>
+
+      <td>
+
+        <button type="button" pButton pRipple [pRowToggler]="cuentaCliente" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+
+      </td>
+
+      <td style="text-align: center; width: 8%">{{cuentaCliente.id}}</td>
+
+      <td style="text-align: center; width: 15%">{{cuentaCliente.cedula}}</td>
+
+      <td style="text-align: center; width: 12%">{{cuentaCliente.nombre}}</td>
+
+      <td style="text-align: center; width: 12%">{{cuentaCliente.apellido}}</td>              
+
+      <td style="text-align: center; width: 12%">{{cuentaCliente.monto_inicial}}</td>              
+
+      <td style="text-align: center; width: 12%">{{cuentaCliente.porct_interes_nomin}}</td>              
+
+      
+
+      <td style="text-align: center; width: 20%">
+
+        <div class="grid">
+
+          <div class="col-12" style="padding-top: 0; padding-bottom: 0">
+
+          </div>
+
+          <div class="col-12" style="padding-top: 0; padding-bottom: 0">                    
+
+          </div>
+
+        </div>
+
+      </td>
+
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-cuentaCliente>
+
+    <tr>
+
+        <td colspan="7">
+
+            <div class="p-3">
+
+                <p-table [value]="cuentaCliente.valores_mensuales">
+
+                    <ng-template pTemplate="header">
+
+                        <tr>
+
+                            <th pSortableColumn="Primer_Monto">Primer_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
+
+                            <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+
+                        </tr>
+
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-valores_mensual>
+
+                        <tr>
+
+                            <td>{{valores_mensual.Primer_Monto}}</td>
+
+                            <td>{{valores_mensual.Primer_Monto}}</td>  
+
+                        </tr>
+
+                    </ng-template>
+
+                    <ng-template pTemplate="emptymessage">
+
+                        <tr>
+
+                            <td colspan="6">There are no order for this product yet.</td>
+
+                        </tr>
+
+                    </ng-template>
+
+                </p-table>
+
+            </div>
+
+        </td>
+
+    </tr>
+
+</ng-template>
+
+
+
+</p-table>
       </div>
     </div>
     <div class="col-12">

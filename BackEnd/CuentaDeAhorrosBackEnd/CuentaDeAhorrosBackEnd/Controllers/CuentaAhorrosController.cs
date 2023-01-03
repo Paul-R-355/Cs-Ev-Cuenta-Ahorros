@@ -138,8 +138,8 @@ namespace CuentaDeAhorrosBackEnd.Controllers
                 List<dto_cuentaCliente> clients = new List<dto_cuentaCliente>();
 
                 while (reader.Read())
-                {
-
+                {                    
+                    List<string> valores_mensuales_ind = (reader[6].ToString()).Split(new char[] { ',' }).ToList();
 
                     dto_cuentaCliente cuenta_cliente = new dto_cuentaCliente
                     {
@@ -149,7 +149,7 @@ namespace CuentaDeAhorrosBackEnd.Controllers
                         apellido = (reader[3].ToString()),
                         monto_inicial = Convert.ToDouble(reader[4].ToString()),
                         porct_interes_nomin = Convert.ToDouble(reader[5].ToString()),
-                        valores_mensuales = (reader[6].ToString()),
+                        valores_mensuales = valores_mensuales_ind,
                     };
 
                     clients.Add(cuenta_cliente);
