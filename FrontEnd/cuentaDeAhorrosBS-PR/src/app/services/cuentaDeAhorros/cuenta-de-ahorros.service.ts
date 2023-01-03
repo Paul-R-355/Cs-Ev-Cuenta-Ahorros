@@ -39,8 +39,7 @@ export class CuentaDeAhorrosService {
     let json=JSON.stringify(clienteCuenta);
 
     let params = new HttpParams();
-    params = params.append('json',json);
-    console.log(json)
+    params = params.append('json',json);    
     return this.httpclient.post<Cliente>(UrlRoutes.post_cliente_cuenta,'{}',{headers:headers,params:params})
   }
 

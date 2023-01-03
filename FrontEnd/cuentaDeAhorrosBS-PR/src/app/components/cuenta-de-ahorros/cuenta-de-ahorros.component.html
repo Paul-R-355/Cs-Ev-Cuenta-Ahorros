@@ -34,14 +34,15 @@
       <span style="font-weight: bold; font-size: 10pt">Cuentas de Ahorro:</span>
     </div>
     <div class="col-2">
+      <input pInputText type="text" style="width: 100%" placeholder="Filtre por cédula" [(ngModel)]="valorFiltro" (input)="dt.filterGlobal(valorFiltro, 'contains')">
       <div class="col-12">
-        <p-table #dt [value]="cuentaClienteList" [rows]="10" selectionMode="single" [paginator]="true" [globalFilterFields]="['nombre', 'apellido','cedula']" responsiveLayout="scroll"
-                [rowHover]="true" dataKey="cedula"
+        <p-table #dt [value]="cuentaClienteList" [rows]="7" selectionMode="single" [paginator]="true" [globalFilterFields]="['nombre', 'apellido','cedula']" responsiveLayout="scroll"
+                [rowHover]="true" dataKey="id"
                 [showCurrentPageReport]="true"  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados">
           <ng-template pTemplate="header">
             <tr>
               <th style="text-align: center; width: 10%"></th>
-              <th style="text-align: center; width: 10%">ID</th>
+              <th pSortableColumn="id" style="text-align: center; width: 10%">ID <p-sortIcon field="id"></p-sortIcon></th>
               <th pSortableColumn="cedula" style="text-align: center; width: 25%">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
               <th pSortableColumn="nombre" style="text-align: center; width: 25%">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
               <th pSortableColumn="apellido" style="text-align: center; width: 25%">Apellido <p-sortIcon field="apellido"></p-sortIcon></th>              
@@ -76,48 +77,37 @@
             <tr>
                 <td colspan="7">
                     <div class="p-3">
-                        <p-table [value]="cuentaClienteList.valores_mensuales" dataKey="Primer_Monto">
+                        <p-table [value]="cuentaClienteList.valores_mensuales" dataKey="Primer_Monto" responsiveLayout="scroll">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th pSortableColumn="Primer_Monto">Primer_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Segundo_Monto">Segundo_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Tercero_Monto">Tercero_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Cuarto_Monto">Cuarto_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Quinto_Monto">Quinto_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Sexto_Monto">Sexto_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Septimo_Monto">Septimo_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Octavo_Monto">Octavo_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Noveno_Monto">Noveno_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Decimo_Monto">Decimo_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Onceavo_Monto">Onceavo_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
-                                    <th pSortableColumn="Doceavo_Monto">Doceavo_Monto <p-sortIcon field="Primer_Monto"></p-sortIcon></th>
+                                    <th >Primer_Monto </th>
+                                    <th >Segundo_Monto</th>
+                                    <th >Tercero_Monto</th>
+                                    <th >Cuarto_Monto </th>
+                                    <th >Quinto_Monto </th>
+                                    <th >Sexto_Monto </th>
+                                    <th >Septimo_Monto </th>
+                                    <th >Octavo_Monto </th>
+                                    <th >Noveno_Monto </th>
+                                    <th >Decimo_Monto </th>
+                                    <th >Onceavo_Monto </th>
+                                    <th >Doceavo_Monto </th>
 
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-valores_mensual>
                                 <tr>
                                   <td>{{valores_mensual.Primer_Monto}}</td>
-
                                   <td>{{valores_mensual.Segundo_Monto}}</td>
-
                                   <td>{{valores_mensual.Tercero_Monto}}</td>
-
                                   <td>{{valores_mensual.Cuarto_Monto}}</td>
-
                                   <td>{{valores_mensual.Quinto_Monto}}</td>
-
                                   <td>{{valores_mensual.Sexto_Monto}}</td>
-
                                   <td>{{valores_mensual.Septimo_Monto}}</td>
-
                                   <td>{{valores_mensual.Octavo_Monto}}</td>
-
                                   <td>{{valores_mensual.Noveno_Monto}}</td>  
-
-                                  <td>{{valores_mensual.Decimo_Monto}}</td>  
-
+                                  <td>{{valores_mensual.Decimo_Monto}}</td>                                
                                   <td>{{valores_mensual.Onceavo_Monto}}</td>  
-
                                   <td>{{valores_mensual.Doceavo_Monto}}</td> 
                                 </tr>
                             </ng-template>
@@ -131,10 +121,6 @@
                 </td>
             </tr>
         </ng-template>
-
-
-
-
         </p-table>
       </div>
     </div>
@@ -142,9 +128,6 @@
     </div>
   </div>
 </mat-card>
-
-
-
 
 <p-dialog [(visible)]="displayCrear" [modal]="true" [style]="{'width': '75vw', 'height' :'auto'}" header="Registro de cuenta de ahorros">
   <br>

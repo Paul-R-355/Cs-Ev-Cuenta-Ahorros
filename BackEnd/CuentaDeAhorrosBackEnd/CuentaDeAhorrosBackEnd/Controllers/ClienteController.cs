@@ -130,6 +130,50 @@ namespace CuentaDeAhorrosBackEnd.Controllers
         }
 
 
+        [HttpPost]
+        [Route("get-cuentas")]
+        public Object GetCuentaAhorro()
+        //public ActionResult CrearCuentaAhorros()
+        {
+            if (ModelState.IsValid)
+            {
+
+
+                SqlConnection conexion = (SqlConnection)_context.Database.GetDbConnection();
+                SqlCommand cmd = conexion.CreateCommand();
+                conexion.Open();
+
+                //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = "exec [sp_get_cuentas_ahorros]";
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                List<dto_cuentaCliente> clients = new List<dto_cuentaCliente>();
+
+                while (reader.Read())
+                {
+                    List<string> valores_mensuales_ind = (reader[6].ToString()).Split(new char[] { ',' }).ToList();
+
+                    dto_cuentaCliente cuenta_cliente = new dto_cuentaCliente
+                    {
+                        id = Convert.ToInt32(reader[0].ToString()),
+                        cedula = (reader[1].ToString()),
+                        nombre = (reader[2].ToString()),
+                        apellido = (reader[3].ToString()),
+                        monto_inicial = Convert.ToDouble(reader[4].ToString()),
+                        porct_interes_nomin = Convert.ToDouble(reader[5].ToString()),
+                        valores_mensuales = valores_mensuales_ind,
+                    };
+
+                    clients.Add(cuenta_cliente);
+
+                }
+
+                return clients;
+            }
+            return null;
+        }
+
+
 
     }
 }

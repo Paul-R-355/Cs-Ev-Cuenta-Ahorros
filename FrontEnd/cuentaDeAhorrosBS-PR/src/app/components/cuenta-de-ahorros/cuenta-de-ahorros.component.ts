@@ -14,15 +14,8 @@ import { CuentaAhorros } from 'src/app/modelo/CuentaAhorros';
 })
 export class CuentaDeAhorrosComponent implements OnInit {
 
-  valorFiltro: string = '';
-  estadoEmpleado: boolean = true;
-  displayEditar: boolean = false;
-  emailNuevoerror: boolean = true;
-  emailAntiguoerror: boolean = true;
-  expRCorreo = '/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3,4})+$/';
-  displayCrear: boolean = false;
-  displayContrato: boolean = false;
-
+  valorFiltro: string = '';      
+  displayCrear: boolean = false;  
   cliente:Cliente={
     id:0,
     nombre:'',
@@ -39,10 +32,6 @@ export class CuentaDeAhorrosComponent implements OnInit {
     id_cliente: 0
   };
   
-  filtroEstado: string = 'Todos';
-  filtroEstados: any[] = [{name: 'Todos'}, {name: 'Activos'}, {name: 'Inactivos'}];
-  tiposUsuarios: any[] = [{name: 'Empleado'}, {name: 'Administrador de Unidad'}, {name: 'Administrador de Zona'}];  //faltan opciones
-
   cuentaClienteList:[]=[];
 
   constructor(private messages: MessageService,private cuentaDeAhorrosService:CuentaDeAhorrosService,) { }
@@ -75,11 +64,7 @@ export class CuentaDeAhorrosComponent implements OnInit {
   }    
 
   this.cuentaDeAhorrosService.postCrearCuentaCliente(clienteAhorro).subscribe((x:any)=>{   
-    console.log('objectResult',x)
-  })
-
-  this.cuentaDeAhorrosService.postCliente(this.cliente).subscribe((x:any)=>{   
-    console.log('objectResult',x)
+    console.log('postCrearCuentaCliente',x)
   })
 
   this.messages.add({
@@ -92,7 +77,7 @@ export class CuentaDeAhorrosComponent implements OnInit {
   }
 
   limpiarCampos(){
-    this.displayCrear = false
+    
     this.cliente={
       id:0,
       nombre:'',
@@ -100,9 +85,10 @@ export class CuentaDeAhorrosComponent implements OnInit {
       cedula:'',
       monto:0
     };    
+
     this.cuentaClienteList=[];
     this.cargarCuentasAhorros()
-        
+    this.displayCrear = false;    
   }
 
   cargarCuentasAhorros(){    
@@ -114,8 +100,7 @@ export class CuentaDeAhorrosComponent implements OnInit {
             valores_mensuales:this.createValues(x[i].valores_mensuales)    
         }    
       }          
-      this.cuentaClienteList=x;
-      console.log(this.cuentaClienteList);
+      this.cuentaClienteList=x;      
     })    
   }
   
