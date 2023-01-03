@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from 'src/app/modelo/Usuario';
 import { Router } from "@angular/router";
 import { MessageService } from 'primeng/api';
 import { CuentaDeAhorrosService } from 'src/app/services/cuentaDeAhorros/cuenta-de-ahorros.service';
 import { Cliente } from 'src/app/modelo/Cliente';
+import { CdkMonitorFocus } from '@angular/cdk/a11y';
+import { clienteCuentaAhorro } from 'src/app/modelo/clienteCuentaAhorro';
+import { CuentaAhorros } from 'src/app/modelo/CuentaAhorros';
 
 @Component({
   selector: 'app-cuenta-de-ahorros',
@@ -21,99 +23,85 @@ export class CuentaDeAhorrosComponent implements OnInit {
   displayCrear: boolean = false;
   displayContrato: boolean = false;
 
-  personalNuevo: Usuario = {
-    nombre: '',
-    apellido: '',
-    telefono:'',
-    pais: '',
-    identificacion: '',
-    correo:'',
-    sisHabilitado: true,
-    foto: '',
-    fechaCreacion: new Date(),
-    fechaModificacion: new Date(),
-    tipoUsuario: '',
-    id: '',
-    id_contrato: '',
+  cliente:Cliente={
+    id:0,
+    nombre:'',
+    apellido:'',
+    cedula:'',
+    monto:0
   };
 
-  personalAntiguo: Usuario = {
-    nombre: '',
-    apellido: '',
-    telefono:'',
-    pais: '',
-    identificacion: '',
-    correo:'',
-    sisHabilitado: false,
-    foto: '',
-    fechaCreacion: new Date(),
-    fechaModificacion: new Date(),
-    tipoUsuario: '',
-    id: '',
-    id_contrato: '',
+  cuentaAhorros:CuentaAhorros={
+    id : 0,
+    monto_inicial: 0,
+    porct_interes_nomin :0.03,
+    valores_mensuales:'', 
+    id_cliente: 0
   };
-
-
-  personal: Usuario[] = [];
+  
   filtroEstado: string = 'Todos';
   filtroEstados: any[] = [{name: 'Todos'}, {name: 'Activos'}, {name: 'Inactivos'}];
   tiposUsuarios: any[] = [{name: 'Empleado'}, {name: 'Administrador de Unidad'}, {name: 'Administrador de Zona'}];  //faltan opciones
+
+  cuentaClienteList:[]=[];
 
   constructor(private messages: MessageService,private cuentaDeAhorrosService:CuentaDeAhorrosService,) { }
 
 
   ngOnInit(): void {
-    
+    this.cargarCuentasAhorros();
   }
 
-  crearPersonal() {
-   
-    const cli:Cliente={
-      id:0,
-      nombre:'Pablo',
-      apellido:'Robles',
-      cedula:'1728394657'
-    };
+  calculateNomina(mount:number, time:number , interes:number ): string {
+    const values:number[] = [];
+    for (let i = 1; i < time; i++) {
+      const nomina :number = Number((mount*(1+(i/12)* interes)).toFixed(2));
+        values.push(nomina);
+    }
+    return values.toString();
+  }
 
-    this.cuentaDeAhorrosService.postCliente(cli).subscribe((x:any)=>{   
-        console.log('objectResult',x)
+  crearCuentaCliente(){
+
+  let valoreMensuales=this.calculateNomina(this.cliente.monto,13,this.cuentaAhorros.porct_interes_nomin);
+
+  let clienteAhorro : clienteCuentaAhorro={
+      nombre: this.cliente.nombre,
+      apellido: this.cliente.apellido,
+      cedula: this.cliente.cedula,
+      monto_inicial :this.cliente.monto,
+      porct_interes_nomin :0.03,
+      valores_mensuales: valoreMensuales,	
+  }    
+
+  this.cuentaDeAhorrosService.postCrearCuentaCliente(clienteAhorro).subscribe((x:any)=>{   
+    console.log('objectResult',x)
+  })
+
+  this.cuentaDeAhorrosService.postCliente(this.cliente).subscribe((x:any)=>{   
+    console.log('objectResult',x)
+  })
+
+  this.messages.add({
+    key: 'login',
+    severity: 'success',
+    summary: 'Inicio de Sesión',
+    detail: 'Bienvenido :3'
+  });
+
+  }
+
+  cargarCuentasAhorros(){    
+    this.cuentaDeAhorrosService.getCuentasCliente().subscribe((x:any)=>{   
+      console.log('objectResult',x)
+      this.cuentaClienteList=x;
     })
-    //this.displayCrear = true; 
-
-    this.messages.add({
-      key: 'login',
-      severity: 'success',
-      summary: 'Inicio de Sesión',
-      detail: 'Bienvenido :3'
-    });
   }
 
   controlarCorreo(tipo: string) {
-    if(tipo === 'n') {
-      let re: RegExp = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-      if (re.exec(this.personalNuevo.correo)){
-        this.emailNuevoerror = false;
-      } else {
-        this.emailNuevoerror = true;
-      }
-    } else {
-      let re: RegExp = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-      if (re.exec(this.personalAntiguo.correo)){
-        this.emailAntiguoerror = false;
-      } else {
-        this.emailAntiguoerror = true;
-      }
-    }
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    let filePath = '';
-    if (this.personalAntiguo.nombre !== '') {
-      filePath = this.personalAntiguo.nombre.toString() + ' foto';
-    } else {
-      filePath = this.personalNuevo.nombre.toString() + ' foto';
-    }
   }
 
 }

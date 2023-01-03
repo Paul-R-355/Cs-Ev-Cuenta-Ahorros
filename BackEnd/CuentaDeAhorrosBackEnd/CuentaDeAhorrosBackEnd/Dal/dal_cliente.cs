@@ -7,5 +7,6 @@ namespace CuentaDeAhorrosBackEnd.Dal
 {
     public class dal_cliente
     {
+
     }
 }

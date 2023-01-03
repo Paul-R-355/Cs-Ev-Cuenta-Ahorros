@@ -7,22 +7,64 @@
       <span style="font-weight: bold; font-size: 10pt">Crear Nuevo registro:</span>
     </div>
     <div class="col-2">
-      <button pButton type="button" icon="pi pi-plus" class="p-button-success" style="width: 100%" label="Crear" (click)="crearPersonal()"></button>
+      <button pButton type="button" icon="pi pi-plus" class="p-button-success" style="width: 100%" label="Crear" (click)="this.displayCrear = true;"></button>
     </div>
     <div class="col-12">
     </div>
   </div>
 </mat-card>
 
+
+<mat-card>
+  <h4>Registros</h4>
+  <div class="grid">
+    <div class="col-1">
+      <span style="font-weight: bold; font-size: 10pt">Crear Nuevo registro:</span>
+    </div>
+    <div class="col-2">
+      <div class="col-12">
+        <p-table #dt [value]="cuentaClienteList" [rows]="10" selectionMode="single" [paginator]="true" [globalFilterFields]="['nombre', 'apellido','cedula']" responsiveLayout="scroll"
+                [rowHover]="true" dataKey="identificacion"
+                [showCurrentPageReport]="true"  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="text-align: center; width: 10%">ID</th>
+              <th pSortableColumn="identificacion" style="text-align: center; width: 8%">Cédula <p-sortIcon field="identificacion"></p-sortIcon></th>
+              <th pSortableColumn="nombre" style="text-align: center; width: 12%">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+              <th pSortableColumn="apellido" style="text-align: center; width: 12%">Apellido <p-sortIcon field="apellido"></p-sortIcon></th>              
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-cuentaClienteList>
+            <tr  [pSelectableRow]="cuentaClienteList">
+              <td style="text-align: center; width: 8%">{{cuentaClienteList.id}}</td>
+              <td style="text-align: center; width: 15%">{{cuentaClienteList.cedula}}</td>
+              <td style="text-align: center; width: 12%">{{cuentaClienteList.nombre}}</td>
+              <td style="text-align: center; width: 12%">{{cuentaClienteList.apellido}}</td>              
+              
+              <td style="text-align: center; width: 20%">
+                <div class="grid">
+                  <div class="col-12" style="padding-top: 0; padding-bottom: 0">
+                  </div>
+                  <div class="col-12" style="padding-top: 0; padding-bottom: 0">                    
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div class="col-12">
+    </div>
+  </div>
+</mat-card>
+
+
+
+
 <p-dialog [(visible)]="displayCrear" [modal]="true" [style]="{'width': '75vw', 'height' :'auto'}" header="Registro de cuenta de ahorros">
   <br>
   <div class="grid">    
-    <div class="col-3" style="margin-top: 0">
-      <input *ngIf="personalNuevo.nombre !== ''" type="file" name="file" id="file2" class="inputfile" (change)="onFileSelected($event)">
-      <label *ngIf="personalNuevo.nombre !== ''" for="file2">
-        <i class="pi pi-upload" style="margin-right: 10px"></i>
-        <span>Subir Archivo</span></label>
-    </div>
     <div class="col-4"></div>
     <div class="col-5">
       <div class="grid">
@@ -37,9 +79,9 @@
           </div>
         </div>
         <div class="col-7">
-          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: 1784957840" [(ngModel)]="personalNuevo.identificacion" [minlength]="10" [maxlength]="10" [pKeyFilter]="'pnum'" [ngClass]="(personalNuevo.identificacion === '' || personalNuevo.identificacion.length < 10) ? 'ng-invalid ng-dirty' : ''">
-          <small *ngIf="personalNuevo.identificacion === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
-          <small *ngIf="personalNuevo.identificacion.length < 10 && personalNuevo.identificacion !== ''" class="p-error block" style="font-size: 8pt; float: right">Cédula no válida.</small>
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: 1784957840" [(ngModel)]="cliente.cedula" [minlength]="10" [maxlength]="10" [pKeyFilter]="'pnum'" [ngClass]="(cliente.cedula === '' || cliente.cedula.length < 10) ? 'ng-invalid ng-dirty' : ''">
+          <small *ngIf="cliente.cedula === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+          <small *ngIf="cliente.cedula.length < 10 && cliente.cedula !== ''" class="p-error block" style="font-size: 8pt; float: right">Cédula no válida.</small>
         </div>
         <div class="col-2"></div>
       </div>
@@ -57,8 +99,8 @@
           </div>
         </div>
         <div class="col-7">
-          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: Carlos" [(ngModel)]="personalNuevo.nombre" [ngClass]="(personalNuevo.nombre === '') ? 'ng-invalid ng-dirty' : ''" [pKeyFilter]="'alpha'">
-          <small *ngIf="personalNuevo.nombre === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: Carlos" [(ngModel)]="cliente.nombre" [ngClass]="(cliente.nombre === '') ? 'ng-invalid ng-dirty' : ''" [pKeyFilter]="'alpha'">
+          <small *ngIf="cliente.nombre === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
         </div>
         <div class="col-2"></div>
       </div>
@@ -78,26 +120,8 @@
           </div>
         </div>
         <div class="col-7">
-          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: Bonilla" [(ngModel)]="personalNuevo.apellido" [ngClass]="(personalNuevo.apellido === '') ? 'ng-invalid ng-dirty' : ''" [pKeyFilter]="'alpha'">
-          <small *ngIf="personalNuevo.apellido === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
-        </div>
-        <div class="col-2"></div>
-      </div>
-    </div>
-    <div class="col-5">
-      <div class="grid">
-        <div class="col-3">
-          <div class="grid">
-            <div class="col-12" style="height: 30px">
-              <span style="font-size: 10pt; font-weight: bold">País:</span>
-            </div>
-            <div class="col-12" style="height: 20px">
-              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">País del usuario</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-7">
-          <input pInputText type="text" style="width: 100%;font-size: 10pt;"  placeholder="Ej: Ecuador" [(ngModel)]="personalNuevo.pais" [pKeyFilter]="'alpha'">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: Bonilla" [(ngModel)]="cliente.apellido" [ngClass]="(cliente.apellido  === '') ? 'ng-invalid ng-dirty' : ''" [pKeyFilter]="'alpha'">
+          <small *ngIf="cliente.apellido === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
         </div>
         <div class="col-2"></div>
       </div>
@@ -109,37 +133,17 @@
         <div class="col-3">
           <div class="grid">
             <div class="col-12" style="height: 30px">
-              <span style="font-size: 10pt; font-weight: bold">Correo:</span>
+              <span style="font-size: 10pt; font-weight: bold">Monto Inicial:</span>
             </div>
             <div class="col-12" style="height: 20px">
-              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Correo del usuario</span>
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Monto inicial usuario</span>
             </div>
           </div>
         </div>
         <div class="col-7">
-          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: usuario@servidor.com" [(ngModel)]="personalNuevo.correo" (input)="controlarCorreo('n')" [ngClass]="(personalNuevo.correo === '') ? 'ng-invalid ng-dirty' : ''">
-          <small *ngIf="personalNuevo.correo === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
-          <small *ngIf="emailNuevoerror && personalNuevo.correo !== ''" class="p-error block" style="font-size: 8pt; float: right">El correo no es válido.</small>
-        </div>
-        <div class="col-2"></div>
-      </div>
-    </div>
-    <div class="col-5">
-      <div class="grid">
-        <div class="col-3">
-          <div class="grid">
-            <div class="col-12" style="height: 30px">
-              <span style="font-size: 10pt; font-weight: bold">Teléfono:</span>
-            </div>
-            <div class="col-12" style="height: 20px">
-              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Teléfono del usuario</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-7">
-          <input pInputText type="text" style="width: 100%; font-size: 10pt;" placeholder="Ej: 0987486915" [(ngModel)]="personalNuevo.telefono" [pKeyFilter]="'pnum'" [maxlength]="10" [minlength]="10" [ngClass]="(personalNuevo.telefono === '' || personalNuevo.telefono.length < 10) ? 'ng-invalid ng-dirty' : ''">
-          <small *ngIf="personalNuevo.telefono === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
-          <small *ngIf="personalNuevo.telefono.length < 10 && personalNuevo.telefono !== ''" class="p-error block" style="font-size: 8pt; float: right">Teléfono no válido.</small>
+          <input pInputText type="text" style="width: 100%; font-size: 10pt;" placeholder="Ej: 100" [(ngModel)]="cliente.monto" [pKeyFilter]="'pnum'" [maxlength]="10" [minlength]="10" [min]="100" [ngClass]="(cliente.monto.toString() === '' || cliente.monto < 100) ? 'ng-invalid ng-dirty' : ''">
+          <small *ngIf="cliente.monto.toString() === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+          <small *ngIf="cliente.monto < 100 && cliente.monto.toString() !== ''" class="p-error block" style="font-size: 8pt; float: right">monto menor a $100 no válido.</small>
         </div>
         <div class="col-2"></div>
       </div>
@@ -149,17 +153,6 @@
     <div class="col-5">
       <div class="grid">
         <div class="col-3">
-          <div class="grid">
-            <div class="col-12" style="height: 40px">
-              <span style="font-size: 10pt; font-weight: bold">Tipo de Usuario:</span>
-            </div>
-            <div class="col-12" style="height: 20px">
-              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Seleccione el tipo de usuario</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-7">
-          <p-dropdown [options]="tiposUsuarios" appendTo="body"  optionLabel="name" optionValue="name" [(ngModel)]="personalNuevo.tipoUsuario"></p-dropdown>
         </div>
         <div class="col-2"></div>
       </div>
@@ -169,6 +162,6 @@
   </div>
   <ng-template pTemplate="footer">
     <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger" (click)="displayCrear = false"></button>
-    <button pButton label="Guardar" [disabled]="emailNuevoerror || personalNuevo.identificacion.length < 10 || personalNuevo.telefono.length < 10 || personalNuevo.nombre === '' || personalNuevo.apellido === ''" icon="pi pi-check" class="p-button-success" (click)="crearPersonal()"></button>
+    <button pButton label="Guardar" [disabled]=" cliente.cedula.length < 10 || cliente.nombre === '' || cliente.apellido === ''" icon="pi pi-check" class="p-button-success" (click)="crearCuentaCliente()"></button>
   </ng-template>
 </p-dialog>

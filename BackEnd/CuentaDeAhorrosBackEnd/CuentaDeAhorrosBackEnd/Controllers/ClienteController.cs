@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CuentaDeAhorrosBackEnd;
 using CuentaDeAhorrosBackEnd.Modelo;
+using Microsoft.Data.SqlClient;
 
 namespace CuentaDeAhorrosBackEnd.Controllers
 {
@@ -106,5 +107,29 @@ namespace CuentaDeAhorrosBackEnd.Controllers
         {
             return _context.dto_Cliente.Any(e => e.id == id);
         }
+
+        [HttpPost]
+        [Route("set-cuenta-ahorros")]
+        public ActionResult CrearCuentaAhorros(string json)
+        //public ActionResult CrearCuentaAhorros()
+        {
+            if (ModelState.IsValid)
+            {
+                SqlConnection conexion = (SqlConnection)_context.Database.GetDbConnection();
+                SqlCommand cmd = conexion.CreateCommand();
+                conexion.Open();
+
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = "sp_create_plan_ahorros";
+                cmd.Parameters.Add("@json", System.Data.SqlDbType.NVarChar, int.MaxValue).Value = json;
+                cmd.ExecuteNonQuery();//por no devolver datos
+                conexion.Close();
+                return new EmptyResult();//por no devolver datos 200 ok
+            }
+            return new EmptyResult();
+        }
+
+
+
     }
 }
