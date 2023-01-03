@@ -1,0 +1,234 @@
+<p-toast position="top-right" key="login"></p-toast>
+
+<mat-card>  
+  <div class="grid">
+    <div class="col-1">
+      
+    </div>
+    <div class="col-2">
+      <img src="https://www.banco-solidario.com/sites/default/files/inline-images/Noticias_e_historiras-banner_inferior.png" style="width: 100%; height: auto;">
+    </div>
+    <div class="col-12">
+    </div>
+  </div>
+</mat-card>
+
+<mat-card>
+  <h4>Crear Nuevo registro</h4>
+  <div class="grid">
+    <div class="col-1">      
+    </div>
+    <div class="col-2">
+      <button pButton type="button" icon="pi pi-plus" class="p-button-success" style="width: 15%" label="Crear" (click)="this.displayCrear = true;"></button>
+    </div>
+    <div class="col-12">
+    </div>
+  </div>
+</mat-card>
+
+
+<mat-card>
+  <h4>Registros</h4>
+  <div class="grid">
+    <div class="col-1">
+      <span style="font-weight: bold; font-size: 10pt">Cuentas de Ahorro:</span>
+    </div>
+    <div class="col-2">
+      <input pInputText type="text" style="width: 100%" placeholder="Filtre por cédula" [(ngModel)]="valorFiltro" (input)="dt.filterGlobal(valorFiltro, 'contains')">
+      <div class="col-12">
+        <p-table #dt [value]="cuentaClienteList" [rows]="7" selectionMode="single" [paginator]="true" [globalFilterFields]="['nombre', 'apellido','cedula']" responsiveLayout="scroll"
+                [rowHover]="true" dataKey="id"
+                [showCurrentPageReport]="true"  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="text-align: center; width: 10%"></th>
+              <th pSortableColumn="id" style="text-align: center; width: 10%">ID <p-sortIcon field="id"></p-sortIcon></th>
+              <th pSortableColumn="cedula" style="text-align: center; width: 25%">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
+              <th pSortableColumn="nombre" style="text-align: center; width: 25%">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+              <th pSortableColumn="apellido" style="text-align: center; width: 25%">Apellido <p-sortIcon field="apellido"></p-sortIcon></th>              
+              <th pSortableColumn="monto_inicial" style="text-align: center; width: 100%">Monto <p-sortIcon field="monto_inicial"></p-sortIcon></th>              
+              <th pSortableColumn="porct_interes_nomin" style="text-align: center; width: 100%">Int. Nominal <p-sortIcon field="porct_interes_nomin"></p-sortIcon></th>              
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-cuentaClienteList let-expanded="expanded">
+
+            <tr  [pSelectableRow]="cuentaClienteList">
+              <td>
+                <button type="button" pButton pRipple [pRowToggler]="cuentaClienteList" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+              </td>
+              <td style="text-align: center; width: 8%">{{cuentaClienteList.id}}</td>
+              <td style="text-align: center; width: 15%">{{cuentaClienteList.cedula}}</td>
+              <td style="text-align: center; width: 12%">{{cuentaClienteList.nombre}}</td>
+              <td style="text-align: center; width: 12%">{{cuentaClienteList.apellido}}</td>              
+              <td style="text-align: center; width: 12%">{{cuentaClienteList.monto_inicial}}</td>              
+              <td style="text-align: center; width: 12%">{{cuentaClienteList.porct_interes_nomin}}</td>              
+              
+              <td style="text-align: center; width: 20%">
+                <div class="grid">
+                  <div class="col-12" style="padding-top: 0; padding-bottom: 0">
+                  </div>
+                  <div class="col-12" style="padding-top: 0; padding-bottom: 0">                    
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="rowexpansion" let-cuentaClienteList>
+            <tr>
+                <td colspan="7">
+                    <div class="p-3">
+                        <p-table [value]="cuentaClienteList.valores_mensuales" dataKey="Primer_Monto" responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th >Primer_Monto </th>
+                                    <th >Segundo_Monto</th>
+                                    <th >Tercero_Monto</th>
+                                    <th >Cuarto_Monto </th>
+                                    <th >Quinto_Monto </th>
+                                    <th >Sexto_Monto </th>
+                                    <th >Septimo_Monto </th>
+                                    <th >Octavo_Monto </th>
+                                    <th >Noveno_Monto </th>
+                                    <th >Decimo_Monto </th>
+                                    <th >Onceavo_Monto </th>
+                                    <th >Doceavo_Monto </th>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-valores_mensual>
+                                <tr>
+                                  <td>{{valores_mensual.Primer_Monto}}</td>
+                                  <td>{{valores_mensual.Segundo_Monto}}</td>
+                                  <td>{{valores_mensual.Tercero_Monto}}</td>
+                                  <td>{{valores_mensual.Cuarto_Monto}}</td>
+                                  <td>{{valores_mensual.Quinto_Monto}}</td>
+                                  <td>{{valores_mensual.Sexto_Monto}}</td>
+                                  <td>{{valores_mensual.Septimo_Monto}}</td>
+                                  <td>{{valores_mensual.Octavo_Monto}}</td>
+                                  <td>{{valores_mensual.Noveno_Monto}}</td>  
+                                  <td>{{valores_mensual.Decimo_Monto}}</td>                                
+                                  <td>{{valores_mensual.Onceavo_Monto}}</td>  
+                                  <td>{{valores_mensual.Doceavo_Monto}}</td> 
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6">There are no order for this product yet.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div class="col-12">
+    </div>
+  </div>
+</mat-card>
+
+<p-dialog [(visible)]="displayCrear" [modal]="true" [style]="{'width': '75vw', 'height' :'auto'}" header="Registro de cuenta de ahorros">
+  <br>
+  <div class="grid">    
+    <div class="col-4"></div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Identificación:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Identificación del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: 1784957840" [(ngModel)]="cliente.cedula" [minlength]="10" [maxlength]="10" [pKeyFilter]="'pnum'" [ngClass]="(cliente.cedula === '' || cliente.cedula.length < 10) ? 'ng-invalid ng-dirty' : ''">
+          <small *ngIf="cliente.cedula === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+          <small *ngIf="cliente.cedula.length < 10 && cliente.cedula !== ''" class="p-error block" style="font-size: 8pt; float: right">Cédula no válida.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Nombre:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Nombre del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: Carlos" [(ngModel)]="cliente.nombre" [ngClass]="(cliente.nombre === '') ? 'ng-invalid ng-dirty' : ''" [pKeyFilter]="'alpha'">
+          <small *ngIf="cliente.nombre === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1"></div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Apellido:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Apellido del usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%;font-size: 10pt;" placeholder="Ej: Bonilla" [(ngModel)]="cliente.apellido" [ngClass]="(cliente.apellido  === '') ? 'ng-invalid ng-dirty' : ''" [pKeyFilter]="'alpha'">
+          <small *ngIf="cliente.apellido === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1"></div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+          <div class="grid">
+            <div class="col-12" style="height: 30px">
+              <span style="font-size: 10pt; font-weight: bold">Monto Inicial:</span>
+            </div>
+            <div class="col-12" style="height: 20px">
+              <span style="font-size: 9pt; overflow: hidden; white-space: nowrap;">Monto inicial usuario</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <input pInputText type="text" style="width: 100%; font-size: 10pt;" placeholder="Ej: 100" [(ngModel)]="cliente.monto" [pKeyFilter]="'pnum'" [maxlength]="10" [minlength]="10" [min]="100" [ngClass]="(cliente.monto.toString() === '' || cliente.monto < 100) ? 'ng-invalid ng-dirty' : ''">
+          <small *ngIf="cliente.monto.toString() === ''" class="p-error block" style="font-size: 8pt; float: right">Campo Requerido.</small>
+          <small *ngIf="cliente.monto < 100 && cliente.monto.toString() !== ''" class="p-error block" style="font-size: 8pt; float: right">monto menor a $100 no válido.</small>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1"></div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-3">
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-5"></div>
+    <div class="col-1"></div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger" (click)="displayCrear = false"></button>
+    <button pButton label="Guardar" [disabled]=" cliente.cedula.length < 10 || cliente.nombre === '' || cliente.apellido === ''" icon="pi pi-check" class="p-button-success" (click)="crearCuentaCliente()"></button>
+  </ng-template>
+</p-dialog>
